@@ -1,0 +1,24 @@
+# Node modules
+node_modules/
+
+# Optional npm cache folder
+.npm
+
+# Build output (if you add build steps)
+dist/
+build/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE/editor files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# PostgreSQL data files (if any local DB data folder, usually not in project)
+pgdata/
