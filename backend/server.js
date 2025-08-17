@@ -28,6 +28,7 @@ app.listen(port, hostname, () => {
 });
 
 // RECIPE REQUESTS
+
 app.get('/recipes', async (req, res) => {
   try {
     const result = await client.query('SELECT * from recipes;');
@@ -64,6 +65,18 @@ app.delete('/recipes', async (req, res) => {
   }
 })
 
+app.delete('/recipes/:recipe_id', async (req, res) => {
+  try {
+    const result = await client.query(
+      'DELETE FROM recipes WHERE recipe_id = $1;', [req.params.recipe_id]
+    );
+
+    res.json(result.rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message })
+  }
+})
+
 // INSTRUCTION REQUESTS
 
 app.get('/instructions/:recipe_id', async (req, res) => {
@@ -76,7 +89,7 @@ app.get('/instructions/:recipe_id', async (req, res) => {
 })
 
 app.post('/instructions/:recipe_id', async (req, res) => {
-  const { details, instruction_number } = req.body;s
+  const { details, instruction_number } = req.body;
   const recipe_id = req.params.recipe_id;
   const instruction_id = uuidv4();
   try {
