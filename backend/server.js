@@ -39,12 +39,12 @@ app.get('/recipes', async (req, res) => {
 })
 
 app.post('/recipes', async (req, res) => {
-  const { name, num_instructions } = req.body;
+  const { title, prep_time, cook_time, people_served } = req.body;
   recipe_id = uuidv4();
   try {
     const result = await client.query(
-      'INSERT INTO recipes (recipe_id, name, num_instructions) VALUES ($1, $2, $3) RETURNING *',
-      [recipe_id, name, num_instructions]
+      'INSERT INTO recipes (recipe_id, title, prep_time, cook_time, people_served) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+      [recipe_id, title, prep_time, cook_time, people_served]
     );
 
     res.status(201).json(result.rows[0]);
@@ -77,6 +77,37 @@ app.delete('/recipes/:recipe_id', async (req, res) => {
   }
 })
 
+// INGREDIENT REQUESTS
+
+app.get('/ingredients', async (req, res) => {
+  try {
+    const result = await client.query('SELECT * FROM ingredients;');
+    res.json(result.rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+})
+
+app.post('/ingredients', async (req, res) => {
+  const { name } = req.body;
+  ingredient_id = uuidv4();
+  try {
+    const result = await client.query('INSERT INTO ingredients (ingredient_id, name) VALUES ($1, $2)  RETURNING *;', [ingredient_id, name]);
+    res.status(201).json(result.rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+})
+
+app.delete('/ingredients/:ingredient_id', async (req, res) => {
+  try {
+    const result = await client.query('DELETE FROM ingredients WHERE ingredient_id = $1;', [req.params.ingredient_id]);
+    res.status(200).json(result.rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+})
+
 // INSTRUCTION REQUESTS
 
 app.get('/instructions/:recipe_id', async (req, res) => {
@@ -98,6 +129,17 @@ app.post('/instructions/:recipe_id', async (req, res) => {
       [instruction_id, recipe_id, details, instruction_number]
     );
     res.json(result.rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+})
+
+app.delete('/instructions/:instruction_id', async (req, res) => {
+  try {
+    const result = await client.query('DELETE FROM instructions WHERE instruction_id = $1;',
+      [req.params.instruction_id]
+    );
+    res.json(result.rows);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
