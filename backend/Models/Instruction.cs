@@ -1,4 +1,4 @@
-namespace backend.Models.Entities;
+namespace backend.Models;
 
 public class Instruction
 {

@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace backend.Models.Entities;
+namespace backend.Models;
 
 public class PgContext : DbContext
 {
