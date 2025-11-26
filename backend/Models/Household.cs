@@ -2,9 +2,25 @@ namespace backend.Models;
 
 public class Household
 {
-    public Guid id { get; set; }
+    public Guid Id { get; set; }
     public required string Name { get; set; }
     public List<User> Users { get; set; } = [];
     public List<HouseholdMember> HouseholdMembers { get; } = [];
-    public ICollection<Recipe> Recipes { get; } = new List<Recipe>(); 
+    public List<Recipe> Recipes { get; } = new List<Recipe>();
+}
+
+public class HouseholdReadDto
+{
+    public Guid Id { get; set; }
+    public required string Name { get; set; }
+}
+
+public class HouseholdCreateDto
+{
+    public required string Name { get; set; }
+}
+
+public class HouseholdUpdateDto
+{
+    public required string Name { get; set; }
 }

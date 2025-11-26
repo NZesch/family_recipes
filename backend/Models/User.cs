@@ -8,3 +8,22 @@ public class User
     public List<Household> Households { get; set; } = [];
     public List<HouseholdMember> HouseholdMembers { get; } = [];
 }
+
+public class UserReadDto
+{
+    public Guid Id { get; set; }
+    public string FirstName { get; set; } = default!;
+    public string LastName { get; set; } = default!;
+}
+
+public class UserCreateDto
+{
+    public string FirstName { get; set; } = default!;
+    public string LastName { get; set; } = default!;
+}
+
+public class UserUpdateDto
+{
+    public string FirstName { get; set; } = default!;
+    public string LastName { get; set; } = default!;
+}

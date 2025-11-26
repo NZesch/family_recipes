@@ -8,3 +8,25 @@ public class RecipeIngredient
     public Guid RecipeId { get; set; }
     public Recipe Recipe { get; set; } = null!;
 }
+
+public class RecipeIngredientReadDto
+{
+    public Guid Id { get; set; }
+    public required string Name { get; set; }
+    public required string Quantity { get; set; }
+    public Guid RecipeId { get; set; }
+}
+
+public class RecipeIngredientCreateDto
+{
+    public required string Name { get; set; }
+    public required string Quantity { get; set; }
+    public Guid RecipeId { get; set; }
+}
+
+public class RecipeIngredientUpdateDto
+{
+    public required string Name { get; set; }
+    public required string Quantity { get; set; }
+    public Guid RecipeId { get; set; }
+}
