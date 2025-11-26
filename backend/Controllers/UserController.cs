@@ -24,7 +24,8 @@ public class UserController : ControllerBase
         {
             Id = Guid.NewGuid(),
             FirstName = userCreateDto.FirstName,
-            LastName = userCreateDto.LastName
+            LastName = userCreateDto.LastName,
+            Password = userCreateDto.Password
         };
 
         await _db.Users.AddAsync(user);
@@ -86,6 +87,7 @@ public class UserController : ControllerBase
         // update the user
         user.FirstName = userUpdateDto.FirstName;
         user.LastName = userUpdateDto.LastName;
+        user.Password = userUpdateDto.Password ?? user.Password;
 
         var userReadDto = new UserReadDto
         {
