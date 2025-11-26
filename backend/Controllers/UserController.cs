@@ -41,7 +41,7 @@ public class UserController : ControllerBase
         return userReadDto;
     }
 
-    [HttpGet("/{id}")]
+    [HttpGet("{id}")]
     public async Task<ActionResult<UserReadDto>> GetUserById(Guid id)
     {
         User? user = await _db.Users.Where(u => u.Id == id).FirstOrDefaultAsync();
@@ -75,7 +75,7 @@ public class UserController : ControllerBase
         return users;
     }
 
-    [HttpPut("/{id}")]
+    [HttpPut("{id}")]
     public async Task<ActionResult<UserReadDto>> UpdateUser(Guid id, UserUpdateDto userUpdateDto)
     {
         User? user = await _db.Users.Where(u => u.Id == id).FirstOrDefaultAsync();
@@ -101,7 +101,7 @@ public class UserController : ControllerBase
         return userReadDto;
     }
 
-    [HttpDelete("/{id}")]
+    [HttpDelete("{id}")]
     public async Task<ActionResult> DeleteUser(Guid id)
     {
         User? user = await _db.Users.FindAsync(id);
